@@ -27,13 +27,18 @@ class LoginControll {
             let users=await this.user.getUsers();
             
             for(this.aUser of users){
-                console.log(users);
-                if(userLogin.email==this.aUser.email && userLogin.password==this.aUser.password){
+                if(userLogin.email==this.aUser.Email && userLogin.password==this.aUser.Password){
                     if(this.aUser.status==1){
                         console.log('đăng nhập thành công');
-                        res.writeHead(301, {
-                            location: '/homeUser'
-                        });
+                        if(this.aUser.role_id==3){
+                            res.writeHead(301, {
+                                location: '/homeAdmin'
+                            });
+                        }else{
+                            res.writeHead(301, {
+                                location: '/homeUser'
+                            });
+                        }
                         return res.end();
                     }else{
                         console.log('tài khoản đã bị khóa');

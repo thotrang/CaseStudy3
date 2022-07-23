@@ -1,7 +1,7 @@
 const fs=require('fs');
 
 class HomeAdminController{
-    showHomeUser(req,res){
+    showHomeAdmin(req,res){
         fs.readFile('./views/home_admin.html','utf-8',(err,data)=>{
             if(err){
                 console.log(err);

@@ -7,12 +7,14 @@ const ErrorController=require('./controller/errorControll.js');
 const RegisterControll=require('./controller/registerControll');
 const LoginControll=require('./controller/loginControll.js');
 const HomeUserController =require('./controller/homeUserControll.js')
+const HomeAdminController =require('./controller/homeAdminControll.js')
 
 let homeController=new HomeController();
 let errorController=new ErrorController();
 let registerControll=new RegisterControll();
 let loginControll=new LoginControll();
 let homeUserControll=new HomeUserController();
+let homeAdminControll=new HomeAdminController();
 
 let server=http.createServer((req,res)=>{
     let urlParse=url.parse(req.url,true);
@@ -42,6 +44,10 @@ let server=http.createServer((req,res)=>{
         }
         case '/homeUser':{
             homeUserControll.showHomeUser(req,res);
+            break;
+        }
+        case '/homeAdmin':{
+            homeAdminControll.showHomeAdmin(req,res);
             break;
         }
 
