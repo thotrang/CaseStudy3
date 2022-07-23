@@ -1,4 +1,4 @@
-const Connection = require('module/connection.js');
+const Connection = require('./connection.js');
 
 class User {
     constructor() {
@@ -13,9 +13,9 @@ class User {
     }
 
     // lấy ra tất cả tài khoản admin
-    getUser() {
-        return new promises((resolve, rejects) => {
-            this.connection.query('select * from users', (err, data) => {
+    getUsers() {
+        return new Promise((resolve, rejects) => {
+            this.connection.query('select * from Users', (err, data) => {
                 if (err) {
                     rejects(err);
                 } else {
@@ -26,7 +26,7 @@ class User {
     };
     // tạo 1 tài khoản mới register
     createUser(user) {
-        let insertUser = `insert into users(username, password, phonenumber, email, address) values (${user.name},${user.password},${user.phonenumber},${user.email},${user.address});`;
+        let insertUser = `insert into users(username, password, phonenumber, email, address) values ("${user.name}","${user.password}","${user.phone}","${user.email}",'${user.address}');`;
         this.connection.query(insertUser, (err) => {
             if (err) {
                 console.log(err);
@@ -37,7 +37,7 @@ class User {
     };
     // lấy ra 1 tài khoản với id admin
     getUser(id) {
-        return new promises((resolve, rejects) => {
+        return new Promise((resolve, rejects) => {
             this.connection.query(`select * from users where users.id=${id}`, (err, data) => {
                 if (err) {
                     rejects(err);
@@ -49,7 +49,7 @@ class User {
     };
     //tìm kiếm 1 tài khoản với email admin
     getUserWithEmail(email){
-        return new promises((resolve, rejects) => {
+        return new Promise((resolve, rejects) => {
             this.connection.query(`select * from users where users.email=${email}`, (err, data) => {
                 if (err) {
                     rejects(err);
@@ -60,8 +60,8 @@ class User {
         })
     }
     //tìm kiếm 1 tài khoản với sđt
-    getUserWithEmail(PhoneNumber){
-        return new promises((resolve, rejects) => {
+    getUserWithPhone(PhoneNumber){
+        return new Promise((resolve, rejects) => {
             this.connection.query(`select * from users where users.PhoneNumber=${PhoneNumber}`, (err, data) => {
                 if (err) {
                     rejects(err);
