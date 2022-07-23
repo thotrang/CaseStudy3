@@ -1,4 +1,6 @@
-const mysql=require('mysql');
+const { rejects } = require('assert');
+const mysql = require('mysql');
+const { resolve } = require('url');
 
 class Connection {
 
@@ -7,9 +9,11 @@ class Connection {
             host: 'localhost',
             user: 'root',
             password: '12345678',
-            database: 'blog'
+            database: 'blog',
+            charset:'utf8_general_ci'
         };
         return mysql.createConnection(configToMySQL);
     }
 }
 module.exports = Connection;
+
