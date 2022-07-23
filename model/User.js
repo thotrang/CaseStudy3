@@ -2,8 +2,8 @@ const Connection = require('module/connection.js');
 
 class User {
     constructor() {
-        const connection = Connection.createConnection();
-        connection.connect((err) => {
+        this.connection = Connection.createConnection();
+        this.connection.connect((err) => {
             if (err) {
                 console.log(err)
             } else {
@@ -118,3 +118,4 @@ class User {
         }
         
 };
+module.exports=User;
