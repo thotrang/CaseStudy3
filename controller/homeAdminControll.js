@@ -76,14 +76,13 @@ class HomeAdminController {
                 <th></th>
             </tr>`;
                 for (let i = 0; i < blogs.length; i++) {
-                    table += `<tr>
+                    table += `<tr><a href="/homeAdmin/blogs/blog?id_user=${id_user}&id_blog=${blogs[i].id}">
                     <td>${i + 1}</td>
                     <td>${blogs[i].title}</td>
                     <td>${blogs[i].author}</td>
-                    <td>${(blogs[i].status==1)?'everyone':'only me'}</td>
+                    <td>${(blogs[i].status == 1) ? 'everyone' : 'only me'}</td>
                     <td>${blogs[i].user}</td>
-                    <td><a class="btn btn-primary" href="/homeAdmin/user/lock?id_user=${id_user}&id_user_=${users[i].id}">lock</a></td>
-                    <td><a class="btn btn-danger" href="/homeAdmin/user/delete?id_user=${id_user}&id_user_=${users[i].id}">delete</a></td>
+                    </a>
                 </tr>`
                 }
                 data = data.replace('{table}', table);
