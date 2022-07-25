@@ -19,6 +19,7 @@ let homeAdminController=new HomeAdminController();
 let server=http.createServer((req,res)=>{
     let urlParse=url.parse(req.url,true);
     let urlPath = urlParse.pathname;
+    let query = qs.parse(urlParse.query);
     let method = req.method;
 
     switch(urlPath){
@@ -43,16 +44,32 @@ let server=http.createServer((req,res)=>{
             break;
         }
         case '/homeUser':{
-            homeUserController.viewBlogs(req,res);
+            homeUserController.showHomeUser(req,res,query);
             break;
         }
         case '/homeAdmin':{
-            homeAdminController.showHomeAdmin(req,res);
+            homeAdminController.viewUsers(req,res,query);
             break;
         }
-
+        case `/homeUser/blogs`:{
+            homeUserController.viewBlogs(req,res,query);
+            break;
+        }
+        case `/homeUser/blogs/blog`:{
+            homeUserController.viewABlog(req,res);
+            break;
+        }
+        case `/homeUser/blogs/create_blog`:{
+            if(method==='GET'){
+                homeUserController.showBlogFromCreate(req,res);
+            }else{
+                homeUserController.CreateBlog(req,res,query);
+            }
+            break;
+        }
         default:{
             errorController.showError(req,res);
+            break;
         }
     }
 })

@@ -7,7 +7,7 @@ class LoginController {
         this.user = new User();
     }
     showLogin(req, res) {
-        fs.readFile('./views/login.html', (err, data) => {
+        fs.readFile('./views/home/login.html', (err, data) => {
             if (err) {
                 console.log(err);
             } else {
@@ -32,11 +32,11 @@ class LoginController {
                         console.log('đăng nhập thành công');
                         if(aUser.role_id===3){
                             res.writeHead(301, {
-                                location: `/homeAdmin?id=${aUser.id}`
+                                location: `/homeAdmin?id_user=${aUser.id}`
                             });
                         }else{
                             res.writeHead(301, {
-                                location: `/homeUser?id=${aUser.id}`
+                                location: `/homeUser?id_user=${aUser.id}`
                             });
                         }
                         return res.end();

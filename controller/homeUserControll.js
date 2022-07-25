@@ -1,4 +1,5 @@
 const fs = require('fs');
+const qs = require('qs');
 const Blog = require('../model/Blog.js');
 const Category = require('../model/Category.js');
 class HomeUserController {
@@ -6,12 +7,14 @@ class HomeUserController {
         this.blog = new Blog();
         this.category = new Category();
     }
-    showHomeUser(req, res) {
+    showHomeUser(req, res, query) {
         // sẽ show ra các category trc
-        fs.readFile('./views/home_user.html', 'utf-8', (err, data) => {
+        fs.readFile('./views/home_user/home_user.html', 'utf-8', (err, data) => {
             if (err) {
                 console.log(err);
             } else {
+                let id_user = query.id_user;
+                data = data.replaceAll('{id}', id_user);
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(data);
                 return res.end();
@@ -19,24 +22,24 @@ class HomeUserController {
         })
     };
     // xem danh sách các blog
-    viewBlogs(req, res) {
-        ;
-        fs.readFile('./views/home_user.html', 'utf-8', async (err, data) => {
+    viewBlogs(req, res,query) {
+        fs.readFile('./views/home_user/home_user.html', 'utf-8', async (err, data) => {
             if (err) {
                 console.log(err);
             } else {
+                let id_user = query.id_user;
                 let blogs = await this.blog.getBlogs();
                 let table = ``;
                 for (let i = 0; i < blogs.length; i++) {
                     table += `
-                    <p>danh sách blog</p>
                     <tr>
                     <td>${i + 1}</td>
                     <td>${blogs[i].title}</td>
                     <td>${blogs[i].author}</td>
-                    <td><a href="/homeUser?id=${this.aUser.id}&idblog=${blogs[i].id}>View</a></td>
+                    <td><a href="/homeUser/blogs/blog?id_user=${id_user}&id_blog=${blogs[i].id}>View</a></td>
                 </tr>`;
                 }
+                data = data.replaceAll('{id}', id_user);
                 data = data.replace('{blog}', table);
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(data);
@@ -47,7 +50,7 @@ class HomeUserController {
 
     // xem chi tiết 1 blog
     viewABlog(req, res, idBlog) {
-        fs.readFile('./views/home_user.html', 'utf-8', async (err, data) => {
+        fs.readFile('./views/home_user/home_user.html', 'utf-8', async (err, data) => {
             if (err) {
                 console.log(err);
             } else {
@@ -59,6 +62,7 @@ class HomeUserController {
                 <li>${blog.time_update}</li>
                 <li>${blog.content}</li>
             </ol>`;
+                data = data.replaceAll('{id}', id_user);
                 data = data.replace('{blog}', data);
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(data);
@@ -66,18 +70,43 @@ class HomeUserController {
             }
         })
     }
+    // Đăng 1 blog
+    showBlogFromCreate(req,res){
+        fs.readFile('./views/home_user/create_blog.html','utf-8',(err,data)=>{
+            if(err){
+                console.log(err);
+            }else{
+                
+                res.writeHead(200,{'Content-Type':'text/html'});
+                res.write(data);
+                return res.end();
+            }
+        })
+    }
+    CreateBlog(req, res,query) {
+        let id_user = query.id_user;
+        let data='';
+        req.on('data',chunk=>{
+            data+=chunk;
+        })
+        req.on('end',()=>{
+            let newBlog=qs.parse(data);
+            this.blog.createBlog(newBlog,id_user);
+            res.writeHead(301,{
+                location:`homeUser/blogs/id_user=${id_user}`
+            })
+
+        })
+    }
     // tìm kiếm 1 blog
     findBlog() {
-        
+
     }
     // tìm kiếm theo danh mục
     findWithCategory() {
 
     }
-    // Đăng 1 blog
-    CreateBlog() {
 
-    }
     // xem danh sách blog của tôi
     viewMyBlog() {
 
