@@ -1,7 +1,7 @@
 const fs =require('fs');
 const User=require('../model/User.js');
 const qs = require('qs');
-class RegisterControll{
+class RegisterController{
     constructor(){
         this.user=new User();
     }
@@ -34,5 +34,5 @@ class RegisterControll{
             console.log('error');
         })
     }
-    };
-module.exports=RegisterControll;
+    }
+module.exports=RegisterController;

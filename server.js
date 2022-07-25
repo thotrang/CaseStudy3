@@ -4,17 +4,17 @@ const qs = require('qs');
 
 const HomeController=require('./controller/homeControll.js');
 const ErrorController=require('./controller/errorControll.js');
-const RegisterControll=require('./controller/registerControll');
-const LoginControll=require('./controller/loginControll.js');
+const RegisterController=require('./controller/registerControll');
+const LoginController=require('./controller/loginControll.js');
 const HomeUserController =require('./controller/homeUserControll.js')
 const HomeAdminController =require('./controller/homeAdminControll.js')
 
 let homeController=new HomeController();
 let errorController=new ErrorController();
-let registerControll=new RegisterControll();
-let loginControll=new LoginControll();
-let homeUserControll=new HomeUserController();
-let homeAdminControll=new HomeAdminController();
+let registerController=new RegisterController();
+let loginController=new LoginController();
+let homeUserController=new HomeUserController();
+let homeAdminController=new HomeAdminController();
 
 let server=http.createServer((req,res)=>{
     let urlParse=url.parse(req.url,true);
@@ -27,27 +27,27 @@ let server=http.createServer((req,res)=>{
             break;
         }
         case '/register':{
-            if(method=='GET'){
-                registerControll.showRegister(req,res);
+            if(method==='GET'){
+                registerController.showRegister(req,res);
             }else{
-                registerControll.createUser(req,res);
+                registerController.createUser(req,res);
             }
             break;
         }
         case '/login':{
-            if(method=='GET'){
-                loginControll.showLogin(req,res);
+            if(method==='GET'){
+                loginController.showLogin(req,res);
             }else{
-                loginControll.login(req,res);
+                loginController.login(req,res);
             }
             break;
         }
         case '/homeUser':{
-            homeUserControll.viewBlogs(req,res);
+            homeUserController.viewBlogs(req,res);
             break;
         }
         case '/homeAdmin':{
-            homeAdminControll.showHomeAdmin(req,res);
+            homeAdminController.showHomeAdmin(req,res);
             break;
         }
 

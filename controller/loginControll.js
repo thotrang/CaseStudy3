@@ -2,7 +2,7 @@ const fs = require('fs');
 const User = require('../model/User.js');
 const qs = require('qs');
 
-class LoginControll {
+class LoginController {
     constructor() {
         this.user = new User();
     }
@@ -26,17 +26,17 @@ class LoginControll {
             let userLogin = qs.parse(data);
             let users=await this.user.getUsers();
             
-            for(this.aUser of users){
-                if(userLogin.email==this.aUser.Email && userLogin.password==this.aUser.Password){
-                    if(this.aUser.status==1){
+            for(let aUser of users){
+                if(userLogin.email===aUser.Email && userLogin.password===aUser.Password){
+                    if(aUser.status===1){
                         console.log('đăng nhập thành công');
-                        if(this.aUser.role_id==3){
+                        if(aUser.role_id===3){
                             res.writeHead(301, {
-                                location: `/homeAdmin?id=${this.aUser.id}`
+                                location: `/homeAdmin?id=${aUser.id}`
                             });
                         }else{
                             res.writeHead(301, {
-                                location: `/homeUser?id=${this.aUser.id}`
+                                location: `/homeUser?id=${aUser.id}`
                             });
                         }
                         return res.end();
@@ -49,5 +49,5 @@ class LoginControll {
             }
         })
     }
-};
-module.exports = LoginControll;
+}
+module.exports = LoginController;
