@@ -1,5 +1,6 @@
 const fs=require('fs');
-
+const Category=require('../model/Category.js');
+const Blog=require('../model/Blog.js');
 class HomeAdminController{
     showHomeAdmin(req,res){
         fs.readFile('./views/home_admin.html','utf-8',(err,data)=>{
@@ -12,5 +13,34 @@ class HomeAdminController{
             }
         })
     }
+    // xem tất cả tài khoản
+    viewUsers(){
+
+    }
+    // xem tất cả bài viết
+    viewBlogs(){
+
+    }
+    // xem danh sách các danh mục
+    viewCategories(){
+
+    }
+    // thêm danh mục
+    addCategories(){
+
+    }
+    // khóa 1 tài khoản
+    LockUser(){
+
+    }
+    // xóa 1 bài viết
+    deleteBlog(){
+
+    }
+    // xóa 1 tài khoản
+    deleteUser(){
+        
+    }
+
 };
 module.exports=HomeAdminController;

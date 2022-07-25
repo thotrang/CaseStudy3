@@ -32,11 +32,11 @@ class LoginControll {
                         console.log('đăng nhập thành công');
                         if(this.aUser.role_id==3){
                             res.writeHead(301, {
-                                location: '/homeAdmin'
+                                location: `/homeAdmin?id=${this.aUser.id}`
                             });
                         }else{
                             res.writeHead(301, {
-                                location: '/homeUser'
+                                location: `/homeUser?id=${this.aUser.id}`
                             });
                         }
                         return res.end();

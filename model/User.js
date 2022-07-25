@@ -48,7 +48,7 @@ class User {
         })
     };
     //tìm kiếm 1 tài khoản với email admin
-    getUserWithEmail(email){
+    getUserWithEmail(email) {
         return new Promise((resolve, rejects) => {
             this.connection.query(`select * from users where users.email=${email}`, (err, data) => {
                 if (err) {
@@ -60,7 +60,7 @@ class User {
         })
     }
     //tìm kiếm 1 tài khoản với sđt
-    getUserWithPhone(PhoneNumber){
+    getUserWithPhone(PhoneNumber) {
         return new Promise((resolve, rejects) => {
             this.connection.query(`select * from users where users.PhoneNumber=${PhoneNumber}`, (err, data) => {
                 if (err) {
@@ -94,9 +94,9 @@ class User {
         })
     }
     // khóa 1 tài khoản admin
-    lockUser(id){
-        let user=this.getUser(id)
-        if(user.status==1){
+    lockUser(id) {
+        let user = this.getUser(id)
+        if (user.status == 1) {
             let insertUser = `update users set status= 0 where users.id=${id};`;
             this.connection.query(insertUser, (err) => {
                 if (err) {
@@ -105,7 +105,7 @@ class User {
                     console.log('lock success');
                 }
             })
-        }else{
+        } else {
             let insertUser = `update users set status= 1 where users.id=${id};`;
             this.connection.query(insertUser, (err) => {
                 if (err) {
@@ -115,7 +115,18 @@ class User {
                 }
             })
         }
+    }
+    // chuyển tài khoản user thành admin
+    changeAdmin(id){
+        let insertUser = `update users set role_id=3 where users.id=${id};`;
+            this.connection.query(insertUser, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('change success');
+                }
+            })
         }
-        
+
 };
-module.exports=User;
+module.exports = User;

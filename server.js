@@ -43,7 +43,7 @@ let server=http.createServer((req,res)=>{
             break;
         }
         case '/homeUser':{
-            homeUserControll.showHomeUser(req,res);
+            homeUserControll.viewBlogs(req,res);
             break;
         }
         case '/homeAdmin':{
