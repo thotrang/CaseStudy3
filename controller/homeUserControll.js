@@ -54,7 +54,8 @@ class HomeUserController {
             if (err) {
                 console.log(err);
             } else {
-                let blog = await this.blog.getBlog(idBlog);
+                let id_blog=query.id_blog;
+                let blog = await this.blog.getBlog(id_blog);
                 let data = `<ol>
                 <li>${blog.title}</li>
                 <li>${blog.author}</li>
@@ -97,6 +98,9 @@ class HomeUserController {
             })
 
         })
+        req.on('error',()=>{
+            console.log('err');
+        })
     }
     // tìm kiếm 1 blog
     findBlog() {
@@ -108,8 +112,8 @@ class HomeUserController {
     }
 
     // xem danh sách blog của tôi
-    viewMyBlog() {
-
+    viewMyBlog(req,res,query) {
+        
     }
     // sửa 1 blog đã đăng
     editMyBlog() {

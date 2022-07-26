@@ -25,9 +25,23 @@ class Category{
             })
         })
     };
+    // trả về danh sách các danh mục chứa số lượng blog
+    getCategoriesWithBLog(){
+        return new Promise((resolve,rejects)=>{
+            let query=`SELECT categories.*, COUNT(blogs.id) AS numberOfBlog FROM categories,blogs
+                        GROUP BY categories.name;`;
+            this.connection.query(query,(err,data)=>{
+                if(err){
+                    rejects(err);
+                }else{
+                    resolve(data);
+                }
+            })
+        })
+    }
     // tạo 1 danh mục
     createCategory(category){
-        let queryCreate=`insert into categories (name) values (${category.name})`;
+        let queryCreate=`insert into categories (name) values (${category.nameCategory})`;
         this.connection.query(queryCreate,(err,data)=>{
             if(err){
                 console.log(err);
@@ -47,6 +61,8 @@ class Category{
             }
         })
     }
-    
+    getCategoryWithName(){
+        
+    }
 };
 module.exports=Category;

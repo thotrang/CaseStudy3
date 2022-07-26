@@ -50,9 +50,9 @@ class Blog{
         }) 
     };
     // xem danh sách blog đã đăng của tôi
-    getMyBlogs(id){
+    getMyBlogs(id_user){
         return new Promise((resolve,rejects)=>{
-            this.connection.query(`select * from blogs where blogs.user_id=${id}`,(err,data)=>{
+            this.connection.query(`select * from blogs where blogs.user_id=${id_user}`,(err,data)=>{
                 if(err){
                     rejects(err);
                 }else{
@@ -68,7 +68,7 @@ class Blog{
     // xoad blog
     deleteBlog(id){
         let queryDelete=`delete from blogs where blogs.id=${id}`;
-        this.connection.query(query,(err,data)=>{
+        this.connection.query(queryDelete,(err,data)=>{
             if(err){
                 console.log(err);
             }else{
@@ -79,7 +79,7 @@ class Blog{
 
     // tạo 1 blog
     createBlog(blog,id_user){
-        let query=`insert into blogs (title,author,content,user_id) values (${blog.title},${blog.author},${blog.content},${id_user})`
+        let query=`insert into blogs (title,author,content,user_id) values ('${blog.title}','${blog.author}','${blog.content}',${id_user})`
         this.connection.query(query,(err,data)=>{
             if(err){
                 console.log(err);
@@ -87,6 +87,29 @@ class Blog{
                 console.log('create success');
             }
         })
+    }
+    // khóa 1 blog
+    async lockBlog(id) {
+        let blog = await this.getBlog(id);
+        if (blog[0].status === 1) {
+            let query = `UPDATE blogs SET status = 0 WHERE id=${id};`;
+            this.connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('lock success');
+                }
+            })
+        } else {
+            let query = `UPDATE blogs SET status = 1 WHERE id=${id};`;
+            this.connection.query(query, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('unlock success');
+                }
+            })
+        }
     }
 
 }
