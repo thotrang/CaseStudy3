@@ -13,8 +13,10 @@ const HomeAdminController =require('./controller/homeAdminControll.js');
 const mimeTypes = {
     "html": "text/html",
     "js": "text/javascript",
-    "min.js": "text/javascript",
     "css": "text/css",
+    "min.js": "text/javascript",
+    "js.map": "text/javascript",
+    "css.map": "text/css",
     "min.css": "text/css",
     "jpg": "image/jpg",
     "png": "image/png",
@@ -23,7 +25,7 @@ const mimeTypes = {
     "ttf": "text/html",
     "woff2": "text/html",
     "eot": "text/html",
-};
+}
 
 
 
@@ -39,19 +41,19 @@ let server=http.createServer((req,res)=>{
     let urlPath = urlParse.pathname;
     let query = qs.parse(urlParse.query);
     let method = req.method;
-
-    const filesDefences = req.url.match(/\.js|.css|.jpg|.png|.gif|min.js|min.css/);
+    let filesDefences = req.url.match(/\.js|.css|.jpg|.png|.gif|min.js|js.map|min.css|.css.map|.woff|.ttf|.woff2|.eot/);
     if (filesDefences) {
         let filePath = filesDefences[0].toString();
         let extension = mimeTypes[filesDefences[0].toString().split('.')[1]];
         if (filePath.includes('/css')){
             extension = mimeTypes[filesDefences[0].toString().split('/')[1]];
         }
+        console.log(extension)
         if (extension.includes('?')){
             extension = extension.split('?')[0];
         }
         res.writeHead(200, { 'Content-Type': extension });
-        fs.createReadStream(__dirname + "/Template" + req.url).pipe(res)
+        fs.createReadStream(__dirname + '/template' + req.url).pipe(res);
     }else{
         switch(urlPath){
             case '/':{

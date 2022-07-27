@@ -137,6 +137,7 @@ class HomeUserController {
     }
 
 
+
     // tìm kiếm theo danh mục
     findWithCategory() {
 
@@ -144,12 +145,34 @@ class HomeUserController {
 
     // xem danh sách blog của tôi
     viewMyBlog() {
-
+        // this.blog.getBlogs().then((results) => {
+        //     fs.readFile('./')
+        // })
     }
 
     // sửa 1 blog đã đăng
-    editMyBlog() {
+    editMyBlog(res, req, method) {
+        if (method === 'GET') {
+            fs.readFile('./views/home_user/create_blog.html', 'utf-8', (err, data) => {
+                if (err) {
+                    throw new Error(err.message)
+                }
+            })
+        } else {
+            let data = ''
+            req.on('data', chunk => {
+                data += chunk
+            })
+            req.on('end', () => {
+                let dataForm = qs.parse(data)
 
+                // this.editMyBlog(dataForm.title, dataForm.content, dataForm.author).then((result) => {
+                //     res.writeHead(301, )
+                //     res.write(result)
+                //     res.end()
+                // })
+            })
+        }
     }
 
     // xóa 1 bài viết của tôi

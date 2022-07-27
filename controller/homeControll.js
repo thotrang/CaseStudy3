@@ -6,7 +6,7 @@ class HomeController{
             if(err){
                 console.log(err);
             }else{
-                res.writeHead(200,{'Content-Type':'text/html'});
+                res.writeHead(200,{'Content-Type': 'text/html'});
                 res.write(data);
                 return res.end();
             }
