@@ -1,13 +1,31 @@
 const http = require('http');
 const url = require('url');
 const qs = require('qs');
+const fs = require('fs');
 
 const HomeController=require('./controller/homeControll.js');
 const ErrorController=require('./controller/errorControll.js');
 const RegisterController=require('./controller/registerControll');
 const LoginController=require('./controller/loginControll.js');
 const HomeUserController =require('./controller/homeUserControll.js')
-const HomeAdminController =require('./controller/homeAdminControll.js')
+const HomeAdminController =require('./controller/homeAdminControll.js');
+
+const mimeTypes = {
+    "html": "text/html",
+    "js": "text/javascript",
+    "min.js": "text/javascript",
+    "css": "text/css",
+    "min.css": "text/css",
+    "jpg": "image/jpg",
+    "png": "image/png",
+    "gif": "image/gif",
+    "woff": "text/html",
+    "ttf": "text/html",
+    "woff2": "text/html",
+    "eot": "text/html",
+};
+
+
 
 let homeController=new HomeController();
 let errorController=new ErrorController();
@@ -22,56 +40,72 @@ let server=http.createServer((req,res)=>{
     let query = qs.parse(urlParse.query);
     let method = req.method;
 
-    switch(urlPath){
-        case '/':{
-            homeController.showHome(req,res);
-            break;
+    const filesDefences = req.url.match(/\.js|.css|.jpg|.png|.gif|min.js|min.css/);
+    if (filesDefences) {
+        let filePath = filesDefences[0].toString();
+        let extension = mimeTypes[filesDefences[0].toString().split('.')[1]];
+        if (filePath.includes('/css')){
+            extension = mimeTypes[filesDefences[0].toString().split('/')[1]];
         }
-        case '/register':{
-            if(method==='GET'){
-                registerController.showRegister(req,res);
-            }else{
-                registerController.createUser(req,res);
+        if (extension.includes('?')){
+            extension = extension.split('?')[0];
+        }
+        res.writeHead(200, { 'Content-Type': extension });
+        fs.createReadStream(__dirname + "/Template" + req.url).pipe(res)
+    }else{
+        switch(urlPath){
+            case '/':{
+                homeController.showHome(req,res);
+                break;
             }
-            break;
-        }
-        case '/login':{
-            if(method==='GET'){
-                loginController.showLogin(req,res);
-            }else{
-                loginController.login(req,res);
+            case '/register':{
+                if(method==='GET'){
+                    registerController.showRegister(req,res);
+                }else{
+                    registerController.createUser(req,res);
+                }
+                break;
             }
-            break;
-        }
-        case '/homeUser':{
-            homeUserController.showHomeUser(req,res,query);
-            break;
-        }
-        case '/homeAdmin':{
-            homeAdminController.viewUsers(req,res,query);
-            break;
-        }
-        case `/homeUser/blogs`:{
-            homeUserController.viewBlogs(req,res,query);
-            break;
-        }
-        case `/homeUser/blogs/blog`:{
-            homeUserController.viewABlog(req,res);
-            break;
-        }
-        case `/homeUser/blogs/create_blog`:{
-            if(method==='GET'){
-                homeUserController.showBlogFromCreate(req,res);
-            }else{
-                homeUserController.CreateBlog(req,res,query);
+            case '/login':{
+                if(method==='GET'){
+                    loginController.showLogin(req,res);
+                }else{
+                    loginController.login(req,res);
+                }
+                break;
             }
-            break;
-        }
-        default:{
-            errorController.showError(req,res);
-            break;
+            case '/homeUser':{
+                homeUserController.showHomeUser(req,res,query);
+                break;
+            }
+            case '/homeAdmin':{
+                homeAdminController.viewUsers(req,res,query);
+                break;
+            }
+            case `/homeUser/blogs`:{
+                homeUserController.viewBlogs(req,res,query);
+                break;
+            }
+            case `/homeUser/blogs/blog`:{
+                homeUserController.viewABlog(req,res);
+                break;
+            }
+            case `/homeUser/blogs/create_blog`:{
+                if(method==='GET'){
+                    homeUserController.showBlogFromCreate(req,res);
+                }else{
+                    homeUserController.CreateBlog(req,res,query);
+                }
+                break;
+            }
+            default:{
+                errorController.showError(req,res);
+                break;
+            }
         }
     }
+
+
 })
 server.listen(8080,()=>{
     console.log('server running in http://localhost:8080');

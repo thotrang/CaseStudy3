@@ -61,11 +61,12 @@ class Blog{
             })
         })
     };
-    // sửa blog
+
     // editMyBlog(id,blog){
     //     let 
     // }
-    // xoad blog
+
+    // xoa blog
     deleteBlog(id){
         let queryDelete=`delete from blogs where blogs.id=${id}`;
         this.connection.query(query,(err,data)=>{

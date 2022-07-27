@@ -2,7 +2,7 @@ const fs=require('fs');
 
 class HomeController{
     showHome(req,res){
-        fs.readFile('./views/home/home.html','utf-8',(err,data)=>{
+        fs.readFile('./template/index.html','utf-8',(err,data)=>{
             if(err){
                 console.log(err);
             }else{
