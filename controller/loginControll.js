@@ -31,8 +31,9 @@ class LoginController {
                     if(aUser.status===1){
                         console.log('đăng nhập thành công');
                         if(aUser.role_id===3){
+                            
                             res.writeHead(301, {
-                                location: `/homeAdmin?id_user=${aUser.id}`
+                                location: `/homeAdmin/users?id_user=${aUser.id}`
                             });
                         }else{
                             res.writeHead(301, {

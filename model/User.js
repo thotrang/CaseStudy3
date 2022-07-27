@@ -71,6 +71,18 @@ class User {
             })
         })
     }
+    // tìm kiếm tài khoản với name
+    getUserWithName(name) {
+        return new Promise((resolve, rejects) => {
+            this.connection.query(`select * from users where Username like "%${name.q}%"`, (err, data) => {
+                if (err) {
+                    rejects(err);
+                } else {
+                    resolve(data)
+                }
+            })
+        })
+    }
     // xóa tài khoản admin
     deleteUser(id) {
         let insertUser = `delete from users where users.id=${id}`;
@@ -84,7 +96,7 @@ class User {
     };
     // chỉnh sửa tài khoản user
     editUser(id, user) {
-        let insertUser = `update users set password=${user.password},phonenumber=${user.phonenumber},email=${user.email},address=${user.address}) where id=${id};`;
+        let insertUser = `update users set password='${user.password}',phonenumber='${user.phonenumber}',email='${user.email}',address='${user.address}') where id=${id};`;
         this.connection.query(insertUser, (err) => {
             if (err) {
                 console.log(err);

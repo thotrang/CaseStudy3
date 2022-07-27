@@ -40,7 +40,7 @@ class Blog{
     // tìm kiếm 1 blog theo tên
     getblogWithTitle(title){
         return new Promise((resolve,rejects)=>{
-            this.connection.query(`select * from blogs where blogs.title=${title}`,(err,data)=>{
+            this.connection.query(`select * from blogs where blogs.title like "%${title.q}%"`,(err,data)=>{
                 if(err){
                     rejects(err);
                 }else{
@@ -61,6 +61,17 @@ class Blog{
             })
         })
     };
+    getBlogWithCategory(id_category){
+        return new Promise((resolve,rejects)=>{
+            this.connection.query(`select * from blogs where blogs.category_id=${id_category}`,(err,data)=>{
+                if(err){
+                    rejects(err);
+                }else{
+                    resolve(data);
+                }
+            })
+        })
+    }
     // sửa blog
     // editMyBlog(id,blog){
     //     let 

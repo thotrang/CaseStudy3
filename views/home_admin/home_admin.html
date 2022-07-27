@@ -37,24 +37,22 @@
                 <ul class="list-unstyled topnav-menu float-right mb-0">
 
                     <li class="d-none d-lg-block">
-                        <form class="app-search">
+                        <form class="app-search" action="search" method="get">
                             <div class="app-search-box dropdown">
                                 <div class="input-group">
-                                    <input type="search" class="form-control" placeholder="Search..." id="top-search" name="{search}" required>
+                                    <input type="search" class="form-control" placeholder="Search..." id="top-search" name="q" required>
                                     <div class="input-group-append">
                                         <button class="btn" type="submit">
-                                            <a href="/homeAdmin/search?id_user={id_user}">         search </a>
-                                            
+                                            search
                                         </button>
                                     </div>
                                 </div>
-                                
                                 
                             </div>
                         </form>
                     </li>
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a href="/homeAdmin?id_user={id_user}" class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
+                        <a href="/homeAdmin/users?id_user={id_user}" class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
                             data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="/../assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                         </a>
@@ -113,6 +111,12 @@
                                 <span> Categories </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="/homeUser?id_user={id_user}">
+                                <i data-feather="message-square"></i>
+                                <span> Change User Page </span>
+                            </a>
+                        </li>
                     </ul>
 
                 </div>
@@ -132,11 +136,11 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-
-                                <h4 class="page-title">{table}</h4>
+                                <h4  class="page-title">{search}</h4>                            
                             </div>
                         </div>
                     </div>
+                    
                     <!-- end page title -->
 
                     <div class="row">
