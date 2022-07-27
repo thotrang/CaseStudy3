@@ -93,23 +93,20 @@
 </head>
 <body>
 <div class="signup-form">
-  <form action="/" method="post">
+  <form action="/register" method="post">
     <h2>Sign Up</h2>
-<!--    <p>Please fill in this form to create an account!</p>-->
     <hr>
     <div class="form-group">
       <div class="row">
-        <div class="col"><input type="text" class="form-control" name="first_name" placeholder="Name" required="required"></div>
+        <div class="col"><input type="text" class="form-control" name="name" placeholder="Name" required="required"></div>
       </div>
     </div>
     <div class="form-group">
       <div class="row">
-        <div class="col"><input type="text" class="form-control" name="email" placeholder="UserName" required="required"></div>
-                <div class="col"><input type="email" class="form-control" name="last_email" placeholder="@gmail.com" required="required"></div>
-
+        <div class="col"><input type="text" class="form-control" name="email" placeholder="Email" required="required"></div>
     </div>
     </div><div class="form-group">
-      <input type="number" class="form-control" name="number" placeholder="+84" required="required">
+      <input type="number" class="form-control" name="phone" placeholder="+84" required="required">
     </div>
     <div class="form-group">
       <input type="text" class="form-control" name="address" placeholder="Address" required="required">
@@ -117,9 +114,9 @@
     <div class="form-group">
       <input type="password" class="form-control" name="password" placeholder="Password" required="required">
     </div>
-    <div class="form-group">
-      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-    </div>
+<!--    <div class="form-group">-->
+<!--      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">-->
+<!--    </div>-->
     <div class="form-group">
       <label class="form-check-label"><input type="checkbox" required="required"> I accept the Terms of Use &amp Privacy Policy</label>
     </div>
@@ -127,8 +124,6 @@
       <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
     </div>
   </form>
-  <!--    <div class="hint-text">Already have an account? <a href="/login">Login here</a></div>-->
-
 </div>
 </body>
 </html>

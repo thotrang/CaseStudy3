@@ -7,7 +7,7 @@ class RegisterController{
     }
 
     showRegister(req,res){
-        fs.readFile('./views/home/register.html',(err,data)=>{
+        fs.readFile('./template/register.html','utf8',(err,data)=>{
             if(err){
                 console.log(err);
             }else{
