@@ -7,7 +7,7 @@ class RegisterController{
     }
 
     showRegister(req,res){
-        fs.readFile('./views/home/register.html',(err,data)=>{
+        fs.readFile('./template/register.html',(err,data)=>{
             if(err){
                 console.log(err);
             }else{
@@ -26,7 +26,7 @@ class RegisterController{
             let newUser = qs.parse(data);
             this.user.createUser(newUser);
             res.writeHead(301, {
-                location: '/register'
+                location: '/login'
             });
             return res.end();
         });

@@ -7,7 +7,7 @@ class LoginController {
         this.user = new User();
     }
     showLogin(req, res) {
-        fs.readFile('./views/home/login.html', (err, data) => {
+        fs.readFile('./template/login.html', (err, data) => {
             if (err) {
                 console.log(err);
             } else {
