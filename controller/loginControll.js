@@ -24,13 +24,13 @@ class LoginController {
         });
         req.on('end', async () => {
             let userLogin = qs.parse(data);
-            let users=await this.user.getUsers();
+            let users = await this.user.getUsers();
             
             for(let aUser of users){
-                if(userLogin.email===aUser.Email && userLogin.password===aUser.Password){
-                    if(aUser.status===1){
+                if(userLogin.email === aUser.Email && userLogin.password === aUser.Password){
+                    if(aUser.status === 1){
                         console.log('đăng nhập thành công');
-                        if(aUser.role_id===3){
+                        if(aUser.role_id === 3){
                             res.writeHead(301, {
                                 location: `/homeAdmin?id_user=${aUser.id}`
                             });

@@ -26,7 +26,7 @@ class User {
     };
     // tạo 1 tài khoản mới register
     createUser(user) {
-        let insertUser = `insert into users(username, password, phonenumber, email, address) values ("${user.name}","${user.password}","${user.phone}","${user.email}",'${user.address}');`;
+        let insertUser = `insert into users(username, password, phonenumber, email, address, role_id) values ("${user.name}","${user.password}","${user.phone}","${user.email}",'${user.address}', 2);`;
         this.connection.query(insertUser, (err) => {
             if (err) {
                 console.log(err);

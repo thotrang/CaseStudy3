@@ -93,33 +93,63 @@
 </head>
 <body>
 <div class="signup-form">
-  <form action="/" method="post">
+  <form action="/register" method="post" onsubmit="return FormValidate();"
+  >
     <h2>Sign Up</h2>
-<!--    <p>Please fill in this form to create an account!</p>-->
     <hr>
-    <div class="form-group">
-      <div class="row">
-        <div class="col"><input type="text" class="form-control" name="first_name" placeholder="Name" required="required"></div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="name">Name<span style="color: red;" id="errorName">(*)</span></label>
+        <input type="text" name="name" class="form-control" id="name" />
       </div>
     </div>
-    <div class="form-group">
-      <div class="row">
-        <div class="col"><input type="text" class="form-control" name="email" placeholder="Email" required="required"></div>
-<!--                <div class="col"><input type="email" class="form-control" name="last_email" placeholder="@gmail.com" required="required"></div>-->
 
+    <!--    <div class="form-group">-->
+<!--      <div class="row">-->
+<!--        <div class="col"><input type="text" class="form-control" name="name" id ="name" placeholder="Name" required="required"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="email">Email <span style="color: red;" id="erorEmail">(*)</span></label>
+        <input type="text" name="email" class="form-control" id="email" />
+      </div>
     </div>
-    </div><div class="form-group">
-      <input type="number" class="form-control" name="number" placeholder="+84" required="required">
+<!--    <div class="form-group">-->
+<!--      <div class="row">-->
+<!--        <div class="col"><input type="text" class="form-control" name="email" placeholder="Email" required="required"></div>-->
+<!--    </div>-->
+<!--    </div>-->
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="phone">Phone <span style="color: red;" id="erorPhone">(*)</span></label>
+        <input type="number" name="phone" class="form-control" id="phone" />
+      </div>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" name="address" placeholder="Address" required="required">
+<!--    <div class="form-group">-->
+<!--      <input type="number" class="form-control" name="phone" id ='phone' placeholder="+84" required="required">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <input type="text" class="form-control" name="address" id="address" placeholder="Address" required="required">-->
+<!--    </div>-->
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="pass">Password <span style="color: red;" id="errorPass">(*)</span></label>
+        <input type="password" name="password" class="form-control" id="pass" />
+      </div>
     </div>
-    <div class="form-group">
-      <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-    </div>
+<!--    <div class="form-group">-->
+<!--      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">-->
+<!--    </div>-->
 <!--    <div class="form-group">-->
 <!--      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">-->
 <!--    </div>-->
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="passw">Confirm Password <span style="color: red;" id="errorConPass">(*)</span></label>
+        <input type="password" name="con_password" class="form-control" id="passw" />
+      </div>
+    </div>
     <div class="form-group">
       <label class="form-check-label"><input type="checkbox" required="required"> I accept the Terms of Use &amp Privacy Policy</label>
     </div>
@@ -127,8 +157,84 @@
       <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
     </div>
   </form>
-  <!--    <div class="hint-text">Already have an account? <a href="/login">Login here</a></div>-->
-
 </div>
+<script>
+
+
+  function FormValidate(){
+    let name = document.getElementById('name').value;
+    let errorName = document.getElementById('errorName');
+    let regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+
+    let phone = document.getElementById('phone').value;
+    let errorPhone = document.getElementById('errorPhone');
+    let regexPhone = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+
+
+    let email = document.getElementById('email').value;
+    let errorEmail = document.getElementById('errorEmail');
+    let reGexEmail = /^[\w.+\-]+@gmail\.com$/g;
+
+    let regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g;
+
+    if (name ==='' || name == null) {
+      errorName.innerHTML = "Họ tên không được để trống!";
+    }else if(!regexName.test(name)){
+      errorName.innerHTML = "Họ tên không hợp lệ!";
+      return false;
+    }else{
+      errorName.innerHTML = '';
+    }
+
+    if (phone === '' || phone == null) {
+      errorPhone.innerHTML = "Số điện thoại không được để trống!";
+    }else if(!regexPhone.test(phone)){
+      errorPhone.innerHTML = "SĐT không hợp lệ!";
+      return false;
+    }else{
+      errorPhone.innerHTML = '';
+    }
+
+    if (email === '' || email == null) {
+      errorEmail.innerHTML = "Email không được để trống!";
+    }else if(!reGexEmail.test(email)){
+      errorEmail.innerHTML = "Email không hợp lệ!";
+      email = '';
+    }else{
+      errorEmail.innerHTML = '';
+    }
+
+    let passW = document.getElementById('pass').value;
+    let errorPass = document.getElementById('errorPass');
+
+    if (passW === '' || passW == null) {
+      errorPass.innerHTML = "Mật khẩu vui lòng không để trống!";
+    }else if (!regexPass.test(passW)) {
+      errorPass.innerHTML = "Định dạng mật khẩu không đúng";
+    }else{
+      errorPass.innerHTML = "";
+    }
+
+    let ConPass = document.getElementById('passw').value;
+    let errorConPass = document.getElementById('errorConPass');
+
+    if (ConPass === '' || ConPass == null) {
+      errorConPass.innerHTML = "Xác nhận mật khẩu vui lòng không để trống!";
+    }else if(ConPass !== passW){
+      errorConPass.innerHTML = ("Xác nhận mật khẩu không trùng khớp!");
+    }else{
+      errorConPass.innerHTML = "";
+    }
+    if (name && phone && email && ConPass && passW && passW === ConPass) {
+      // Người dùng đã nhập đúng thông tin
+      errorConPass.innerHTML = ("Đăng ký thành công!");
+      // return true; thực hiện việc submit form
+    }else{
+    }
+    return false;
+  }
+
+</script>
+
 </body>
 </html>
