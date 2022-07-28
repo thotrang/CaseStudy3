@@ -28,7 +28,7 @@ class Category {
     // trả về danh sách các danh mục chứa số lượng blog
     getCategoriesWithBLog() {
         return new Promise((resolve, rejects) => {
-            let query = `SELECT categories.*, COUNT(blogs.id) AS numberOfBlog FROM categories,blogs
+            let query = `SELECT categories.*, COUNT(blogs.category_id) AS numberOfBlog FROM categories,blogs
                         GROUP BY categories.name;`;
             this.connection.query(query, (err, data) => {
                 if (err) {

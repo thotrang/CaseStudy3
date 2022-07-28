@@ -11,7 +11,15 @@ class HomeAdminController {
     }
     showListUser(req, res, query, users) {
         let id_user = query.id_user;
-        let content = `<table class="table table-centered table-striped dt-responsive nowrap w-100"
+        let content = `<nav class="navbar bg-light">
+        <div class="container-fluid">
+          <form class="d-flex" role="search" method='post' action="/homeAdmin/users/search?id_user=${id_user}">
+            <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+        <table class="table table-centered table-striped dt-responsive nowrap w-100"
                 id="products-datatable">
                 <thead>
                     <tr>
@@ -45,7 +53,16 @@ class HomeAdminController {
     }
     showListBlog(req, res, query, blogs) {
         let id_user = query.id_user;
-        let content = `<table class="table table-centered table-striped dt-responsive nowrap w-100"
+        let content = `<nav class="navbar bg-light">
+        <div class="container-fluid">
+          <form class="d-flex" role="search" method='post' action="/homeAdmin/blogs/search">
+          <input type="hidden" name="id_user" value="${id_user}"/>
+            <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+        <table class="table table-centered table-striped dt-responsive nowrap w-100"
         id="products-datatable">
         <thead>
             <tr>
@@ -75,7 +92,19 @@ class HomeAdminController {
     }
     showListCategory(req, res, query, categories) {
         let id_user = query.id_user;
-        let content = `<table class="table table-centered table-striped dt-responsive nowrap w-100"
+        let content = `<nav class="navbar bg-light">
+        <div class="container-fluid">
+          <form class="d-flex" role="search" method='post' action="/homeAdmin/categories/search">
+          <input type="hidden" name="id_user" value="${id_user}"/>
+            <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
+
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            <a style="margin-left: 20px" class="btn btn-outline-success" href="/homeAdmin/categories/create?id_user=${id_user}">Create</a>
+          </form>
+        </div>
+      </nav>
+      
+        <table class="table table-centered table-striped dt-responsive nowrap w-100"
         id="products-datatable">
         <thead>
             <tr>
@@ -108,15 +137,7 @@ class HomeAdminController {
             } else {
                 let id_user = query.id_user;
                 let users = await this.user.getUsers();
-                let search = `USER
-                <nav class="navbar bg-light">
-                <div class="container-fluid">
-                  <form class="d-flex" role="search" method='post' action="/homeAdmin/users/search?id_user=${id_user}">
-                    <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                  </form>
-                </div>
-              </nav>`
+                let search = `USER`
                 let content = this.showListUser(req, res, query, users);
                 data = data.replaceAll('{id_user}', id_user);
                 data = data.replace('{search}', search);
@@ -135,16 +156,7 @@ class HomeAdminController {
             } else {
                 let id_user = query.id_user;
                 let blogs = await this.blog.getBlogs();
-                let search = `BLOGS
-                <nav class="navbar bg-light">
-                <div class="container-fluid">
-                  <form class="d-flex" role="search" method='post' action="/homeAdmin/blogs/search">
-                  <input type="hidden" name="id_user" value="${id_user}"/>
-                    <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                  </form>
-                </div>
-              </nav>`
+                let search = `BLOGS`
                 let content = this.showListBlog(req, res, query, blogs)
                 data = data.replace('{search}', search);
                 data = data.replaceAll('{id_user}', id_user);
@@ -231,17 +243,7 @@ class HomeAdminController {
             } else {
                 let id_user = query.id_user;
                 let categories = await this.category.getCategoriesWithBLog();
-                let search = `CATEGORIES
-                <nav class="navbar bg-light">
-                <div class="container-fluid">
-                  <form class="d-flex" role="search" method='post' action="/homeAdmin/categories/search">
-                  <input type="hidden" name="id_user" value="${id_user}"/>
-                    <input class="form-control me-2" type="text" required aria-label="Search" name='q'>
-
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                  </form>
-                </div>
-              </nav>`
+                let search = `CATEGORIES`
 
                 let content = this.showListCategory(req, res, query, categories);
                 data = data.replaceAll('{search}', search);
@@ -272,27 +274,6 @@ class HomeAdminController {
             console.log('error');
         })
     }
-    showEditCategory(req,res,query){
-        fs.readFile('./views/home_admin/home_admin.html', 'utf-8', async (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                let id_user = query.id_user;
-                let search = `EDIT CATEGORY`;
-
-                let content=`<form action="" method="post">
-                <input type="text" name="nameCategory" required>
-                <input type="submit" value="submit">
-              </form>`
-                data = data.replaceAll('{search}', search);
-                data = data.replaceAll('{id_user}', id_user);
-                data = data.replace('{content}', content);
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(data);
-                return res.end();
-            }
-        })
-    }
     editCategory(req, res, query) {
         let data = ``;
         req.on('data', chunk => {
@@ -312,6 +293,57 @@ class HomeAdminController {
             console.log('error');
         })
     }
+    showEditCategory(req,res,query){
+        fs.readFile('./views/home_admin/home_admin.html', 'utf-8', async (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                let id_user = query.id_user;
+                let search = `EDIT CATEGORY`;
+
+              let content=`<nav class="navbar bg-light">
+              <div class="container-fluid">
+                <form class="d-flex" role="search" method='post' action="">
+                  <input class="form-control me-2" type="text" name="nameCategory" required>
+                  <button class="btn btn-outline-success" type="submit">EDIT</button>
+                </form>
+              </div>
+            </nav>`
+                data = data.replaceAll('{search}', search);
+                data = data.replaceAll('{id_user}', id_user);
+                data = data.replace('{content}', content);
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write(data);
+                return res.end();
+            }
+        })
+    }
+    showCreateCategory(req,res,query){
+        fs.readFile('./views/home_admin/home_admin.html', 'utf-8', async (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                let id_user = query.id_user;
+                let search = `CREATE CATEGORY`;
+
+                let content=`<nav class="navbar bg-light">
+              <div class="container-fluid">
+                <form class="d-flex" role="search" method='post' action="">
+                  <input class="form-control me-2" type="text" name="nameCategory" required>
+                  <button class="btn btn-outline-success" type="submit">CREATE</button>
+                </form>
+              </div>
+            </nav>`
+                data = data.replaceAll('{search}', search);
+                data = data.replaceAll('{id_user}', id_user);
+                data = data.replace('{content}', content);
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write(data);
+                return res.end();
+            }
+        })
+    }
+
     // khóa 1 tài khoản
     LockUser(req, res, query) {
         let id_user_ = query.id_user_;
