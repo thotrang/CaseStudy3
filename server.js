@@ -85,11 +85,16 @@ let server=http.createServer((req,res)=>{
                 break;
             }
             case `/homeUser/blogs`:{
-                homeUserController.viewBlogs(req,res,query);
+                if(urlParse.query.category){
+                    homeUserController.findWithCategory(req,res,urlParse.query.category);
+                }else{
+                    homeUserController.viewBlogs(req,res,urlParse.query);
+                }
                 break;
             }
             case `/homeUser/blogs/blog`:{
-                homeUserController.viewABlog(req,res);
+                let idBlog = urlParse.query.idBlog;
+                homeUserController.viewABlog(req,res, idBlog);
                 break;
             }
             case `/homeUser/blogs/create_blog`:{
@@ -98,6 +103,20 @@ let server=http.createServer((req,res)=>{
                 }else{
                     homeUserController.CreateBlog(req,res,query);
                 }
+                break;
+            }
+            case `/homeUser/blogs/setting` :{
+                if(method === 'GET'){
+                    homeUserController.settingBlog(req,res);
+                }else{
+                    homeUserController.editMyBlog(req,res);
+                }
+
+                break;
+            }
+            case `/homeUser/blogs/setting/delete` :{
+                const id = urlParse.query.id;
+                homeUserController.deleteBlogs(req,res,id);
                 break;
             }
             default:{

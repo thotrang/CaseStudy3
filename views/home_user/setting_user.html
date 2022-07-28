@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setting</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-3 fh5co_padding_menu">
+        <img src="" alt="img" class="fh5co_logo_width"/>
+      </div>
+      <div class="col-6 col-md-8 align-self-end fh5co_mediya_right">
+        <div class="input-group rounded">
+          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                 aria-describedby="search-addon"/>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 ">
+      <div class="list-group ">
+        <a href="user.html" class="list-group-item list-group-item-action ">Blog</a>
+        <a href="../views/home_user/list-user.html" class="list-group-item list-group-item-action ">Add Blog</a>
+        <a href="setting-user.html" class="list-group-item list-group-item-action active">Setting</a>
+        <a href="index.html" class="list-group-item list-group-item-action">Home</a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h4> Setting </h4>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Content</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {list}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/homeUser/blogs/setting" method="post">
+          <div class="form-group">
+            <label  class="col-form-label">ID:</label>
+            <input type="text" class="form-control" id="eId" readonly name="editId" >
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="eTitle" name="editTitle">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Author:</label>
+            <input type="text"  class="form-control" id="eAuthor" name="editAuthor">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Content:</label>
+            <input type="text"  class="form-control" id="eContent" name="editContent">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Status:</label>
+            <input type="text"  class="form-control" id="eStatus" name="editStatus" >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  function getEditButton(obj) {
+    document.getElementById('eId').value = obj.id;
+    document.getElementById('eTitle').value = obj.title;
+    document.getElementById('eAuthor').value = obj.author;
+    document.getElementById('eContent').value = obj.content;
+    document.getElementById('eStatus').value = obj.status;
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
