@@ -116,14 +116,27 @@ class Blog {
     }
 
     // tạo 1 blog
-    createBlog(blog, id_user) {
-        let query = `insert into blogs (title,author,content,user_id) values (${blog.title},${blog.author},${blog.content},${id_user})`
+    createBlog(blog) {
+        let query = `insert into blogs (title,author,content,category_id) values ('${blog.title}','${blog.author}','${blog.content}',${blog.category})`
         this.connection.query(query, (err, data) => {
             if (err) {
                 console.log(err);
             } else {
                 console.log('create success');
             }
+        })
+    }
+
+    findByTitle(title){
+        return new Promise((resolve, reject) => {
+            let queryDelete=`SELECT * FROM blogs WHERE title = '${title}'`;
+            this.connection.query(queryDelete,(err,data)=>{
+                if(err){
+                    reject(err)
+                }else{
+                    resolve(data)
+                }
+            })
         })
     }
 

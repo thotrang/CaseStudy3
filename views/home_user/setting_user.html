@@ -13,11 +13,13 @@
         <img src="" alt="img" class="fh5co_logo_width"/>
       </div>
       <div class="col-6 col-md-8 align-self-end fh5co_mediya_right">
-        <div class="input-group rounded">
-          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                 aria-describedby="search-addon"/>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </div>
+        <form action="/homeUser/blogs/setting" method="post">
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" name="search"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </div>
+        </form>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -29,10 +31,10 @@
   <div class="row">
     <div class="col-md-3 ">
       <div class="list-group ">
-        <a href="user.html" class="list-group-item list-group-item-action ">Blog</a>
-        <a href="../views/home_user/list-user.html" class="list-group-item list-group-item-action ">Add Blog</a>
-        <a href="setting-user.html" class="list-group-item list-group-item-action active">Setting</a>
-        <a href="index.html" class="list-group-item list-group-item-action">Home</a>
+        <a href="/homeUser/blogs" class="list-group-item list-group-item-action ">Blog</a>
+        <a href="/homeUser/blogs/create_blog" class="list-group-item list-group-item-action ">Add Blog</a>
+        <a href="/homeUser/blogs/setting" class="list-group-item list-group-item-action active">All Blog</a>
+        <a href="/" class="list-group-item list-group-item-action">Home</a>
       </div>
     </div>
     <div class="col-md-9">
@@ -82,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/homeUser/blogs/setting" method="post">
+        <form action="/homeUser/blogs/setting/update" method="post">
           <div class="form-group">
             <label  class="col-form-label">ID:</label>
             <input type="text" class="form-control" id="eId" readonly name="editId" >

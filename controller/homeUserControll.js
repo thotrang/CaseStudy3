@@ -19,11 +19,9 @@ class HomeUserController {
             if (err) {
                 console.log(err);
             } else {
-                let id_user = query.id_user;
-                data = data.replaceAll('{id}', id_user);
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 res.write(data);
-                return res.end();
+                res.end();
             }
         })
     };
@@ -52,7 +50,7 @@ class HomeUserController {
                 data = data.replace('{blog}', table);
                 res.writeHead(200, {'Content-Type': 'text/html'})
                 res.write(data);
-                return res.end();
+                res.end();
             }
         })
     }
@@ -76,7 +74,7 @@ class HomeUserController {
                 data = data.replace('{author}', blog[0].author);
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 res.write(data);
-                return res.end();
+                res.end();
             }
         })
     }
@@ -87,58 +85,74 @@ class HomeUserController {
             if (err) {
                 console.log(err);
             } else {
+                this.category.getCategories().then((categories) => {
+                    let list = '';
+                    categories.forEach((category) => {
+                        list += `<option value="${category.id}">${category.name}</option>`
+                    })
+                    data = data.replace('{categoryList}', list)
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(data);
+                    res.end();
+                })
 
-                res.writeHead(200, {'Content-Type': 'text/html'});
-                res.write(data);
-                return res.end();
             }
         })
     }
 
-    CreateBlog(req, res, query) {
-        let id_user = query.id_user;
+    CreateBlog(req, res) {
+        // let id_user = query.id_user;
         let data = '';
         req.on('data', chunk => {
             data += chunk;
         })
         req.on('end', () => {
             let newBlog = qs.parse(data);
-            this.blog.createBlog(newBlog, id_user);
+            this.blog.createBlog(newBlog);
             res.writeHead(301, {
-                location: `homeUser/blogs/id_user=${id_user}`
+                location: `/homeUser/blogs/setting`
             })
-
+            res.end();
         })
     }
 
     // tìm kiếm 1 blog
 
-    async findBlog(req, res) {
-        if (req.method === 'GET') {
-            let buffer = [];
-
-            for await (const chunk of req) {
-                buffer.push(chunk);
-            }
-            const data = Buffer.concat(buffer).toString()
-            const dataSearch = (qs.parse(data)).name;
-
-            this.blog.getBlogs().then(blogs => {
-                fs.readFile('./views/home_user/create_blog.html', 'utf-8', (err, data) => {
+    findBlog(req, res) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+        })
+        req.on('end', () => {
+            let blog = qs.parse(data);
+            this.blog.findByTitle(blog.search).then((blogs)=>{
+                fs.readFile('./views/home_user/setting_user.html', 'utf-8', (err, data1) => {
                     if (err) {
                         throw err
                     }
-                     this.viewBlogs()
-                    // data = data.replace('{tbody}', html)
-                    // data = data.replace('<a href="/" hidden>Back</a>', '<a href="/" >Back</a>')
-                    // res.writeHead(200, "utf8", {"Content-Type": "text/html"})
-                    //
-                    // res.write(data);
-                    return res.end();
+                    let table = ``;
+                    for(let i = 0; i < blogs.length; i++) {
+                        table += `
+                    <tr>
+                    <td>${i + 1}</td>
+                    <td>${blogs[i].title}</td>
+                    <td>${blogs[i].content}</td>
+                    <td>${blogs[i].author}</td>
+                    <td>${blogs[i].status}</td>
+                    <td><a class="btn btn-danger" href="/homeUser/blogs/setting/delete?id=${blogs[i].id}">delete</a>
+                    ${this.editButton(JSON.stringify(blogs[i]))}
+                    </td>
+                </tr>`;
+                    }
+                    data1 = data1.replace('{list}', table);
+                    res.writeHead(200, {'Content-Type': 'text/html'})
+                    res.write(data1);
+                    res.end();
                 })
             })
 
-        }
+
+            })
 
     }
 
@@ -147,7 +161,6 @@ class HomeUserController {
     // tìm kiếm theo danh mục
     findWithCategory(req,res,category) {
         this.blog.getBlogWithCategory(category).then((blogs) => {
-            console.log(blogs)
             fs.readFile('./views/home_user/home_user.html', 'utf-8', (err, data) => {
                 if (err) {
                     console.log(err);
@@ -166,7 +179,7 @@ class HomeUserController {
                     data = data.replace('{blog}', table);
                     res.writeHead(200, {'Content-Type': 'text/html'})
                     res.write(data);
-                    return res.end();
+                    res.end();
                 }
             })
         })
@@ -205,14 +218,12 @@ class HomeUserController {
 
     // sửa 1 blog đã đăng
     editMyBlog(req,res) {
-        console.log('fuck')
         let data = '';
         req.on('data', chunk => {
             data += chunk;
         })
         req.on('end', () => {
             let blog = qs.parse(data);
-            console.log(blog)
             this.blog.editBlog(blog).then(()=>{
                 res.writeHead(301, {
                     location: `http://localhost:8080/homeUser/blogs/setting`
@@ -261,10 +272,12 @@ class HomeUserController {
                data = data.replace('{list}', table);
                 res.writeHead(200, {'Content-Type': 'text/html'})
                 res.write(data);
-                return res.end();
+                res.end();
             }
         })
     }
+
+
 
 
     // // thêm ảnh vào blog

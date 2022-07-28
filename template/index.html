@@ -38,17 +38,17 @@
             <div class="col-12 col-md-3 fh5co_padding_menu">
                 <img src="images/logo.png" height="" width="" alt="img" class="fh5co_logo_width"/>
             </div>
-            <div class="col-12 col-md-9 align-self-center fh5co_mediya_right">
+            <div class="col-12 col-md-9 align-self-center fh5co_mediy-a_right">
                 <div class="input-group rounded">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                            aria-describedby="search-addon"/>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     <div class="text-center d-inline-block">
-                        <a href="login.html" target="_blank" class="fh5co_display_table">
-                            <div class="fh5co_verticle_middle"><i class="fa fa-user-o">Ha</i></div>
+                        <a href="/login" class="fh5co_display_table">
+                            <div class="fh5co_verticle_middle"><i class="fa fa-user-o">{name}</i></div>
                         </a>
                     </div>
-                    <a href="login.html" target="_blank" class="fh5co_display_table">
+                    <a href="/logout"  class="fh5co_display_table">
                         <div class="fh5co_verticle_middle"><i class="fa fa-sign-out"></i></div>
                     </a>
                 </div>
@@ -67,16 +67,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Blog <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/homeUser/blogs">Blog <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="blog.html">Upload Blog <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/homeUser/blogs/create_blog">Upload Blog <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="single.html">Single <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item text-center col-md-7">
-                        <a class="nav-link" href="user.html">Profile<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/homeUser/blogs">Profile<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -134,167 +134,6 @@
         </div>
     </div>
 </div>
-<!--<div class="container-fluid pb-4 pt-5">-->
-<!--    <div class="container animate-box">-->
-<!--        <div>-->
-<!--            <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">News</div>-->
-<!--        </div>-->
-<!--        <div class="owl-carousel owl-theme" id="slider2">-->
-<!--            <div class="item px-2">-->
-<!--                <div class="fh5co_hover_news_img">-->
-<!--                    <div class="fh5co_news_img"><img src="images/39-324x235.jpg" alt=""/></div>-->
-<!--                    <div>-->
-<!--                        <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                        <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="item px-2">-->
-<!--                <div class="fh5co_hover_news_img">-->
-<!--                    <div class="fh5co_news_img"><img src="images/joe-gardner-75333.jpg" alt=""/></div>-->
-<!--                    <div>-->
-<!--                        <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                        <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="item px-2">-->
-<!--                <div class="fh5co_hover_news_img">-->
-<!--                    <div class="fh5co_news_img"><img src="images/ryan-moreno-98837.jpg" alt=""/></div>-->
-<!--                    <div>-->
-<!--                        <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                        <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="item px-2">-->
-<!--                <div class="fh5co_hover_news_img">-->
-<!--                    <div class="fh5co_news_img"><img src="images/seth-doyle-133175.jpg" alt=""/></div>-->
-<!--                    <div>-->
-<!--                        <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                        <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div class="container-fluid fh5co_video_news_bg pb-4">-->
-<!--    <div class="container animate-box" data-animate-effect="fadeIn">-->
-<!--        <div>-->
-<!--            <div class="fh5co_heading fh5co_heading_border_bottom pt-5 pb-2 mb-4  text-white">Video News</div>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <div class="owl-carousel owl-theme" id="slider3">-->
-<!--                <div class="item px-2">-->
-<!--                    <div class="fh5co_hover_news_img">-->
-<!--                        <div class="fh5co_hover_news_img_video_tag_position_relative">-->
-<!--                            <div class="fh5co_news_img">-->
-<!--                                <iframe id="video" width="100%" height="200"-->
-<!--                                        src="https://www.youtube.com/embed/aM9g4r9QUsM?rel=0&amp;showinfo=0"-->
-<!--                                        frameborder="0" allowfullscreen></iframe>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute fh5co_hide">-->
-<!--                                <img src="images/ariel-lustre-208615.jpg" alt=""/>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute_1 fh5co_hide" id="play-video">-->
-<!--                                <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button_1">-->
-<!--                                    <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button">-->
-<!--                                        <span><i class="fa fa-play"></i></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="pt-2">-->
-<!--                            <a href="#" class="d-block fh5co_small_post_heading fh5co_small_post_heading_1">-->
-<!--                                <span class="">The top 10 funniest videos on YouTube </span></a>-->
-<!--                            <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="item px-2">-->
-<!--                    <div class="fh5co_hover_news_img">-->
-<!--                        <div class="fh5co_hover_news_img_video_tag_position_relative">-->
-<!--                            <div class="fh5co_news_img">-->
-<!--                                <iframe id="video_2" width="100%" height="200"-->
-<!--                                        src="https://www.youtube.com/embed/aM9g4r9QUsM?rel=0&amp;showinfo=0"-->
-<!--                                        frameborder="0" allowfullscreen></iframe>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute fh5co_hide_2">-->
-<!--                                <img src="images/39-324x235.jpg" alt=""/></div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute_1 fh5co_hide_2"-->
-<!--                                 id="play-video_2">-->
-<!--                                <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button_1">-->
-<!--                                    <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button">-->
-<!--                                        <span><i class="fa fa-play"></i></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="pt-2">-->
-<!--                            <a href="#" class="d-block fh5co_small_post_heading fh5co_small_post_heading_1">-->
-<!--                                <span class="">The top 10 embedded YouTube videos this month</span></a>-->
-<!--                            <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="item px-2">-->
-<!--                    <div class="fh5co_hover_news_img">-->
-<!--                        <div class="fh5co_hover_news_img_video_tag_position_relative">-->
-<!--                            <div class="fh5co_news_img">-->
-<!--                                <iframe id="video_3" width="100%" height="200"-->
-<!--                                        src="https://www.youtube.com/embed/aM9g4r9QUsM?rel=0&amp;showinfo=0"-->
-<!--                                        frameborder="0" allowfullscreen></iframe>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute fh5co_hide_3">-->
-<!--                                <img src="images/joe-gardner-75333.jpg" alt=""/></div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute_1 fh5co_hide_3"-->
-<!--                                 id="play-video_3">-->
-<!--                                <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button_1">-->
-<!--                                    <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button">-->
-<!--                                        <span><i class="fa fa-play"></i></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="pt-2">-->
-<!--                            <a href="#" class="d-block fh5co_small_post_heading fh5co_small_post_heading_1">-->
-<!--                                <span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                            <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="item px-2">-->
-<!--                    <div class="fh5co_hover_news_img">-->
-<!--                        <div class="fh5co_hover_news_img_video_tag_position_relative">-->
-<!--                            <div class="fh5co_news_img">-->
-<!--                                <iframe id="video_4" width="100%" height="200"-->
-<!--                                        src="https://www.youtube.com/embed/aM9g4r9QUsM?rel=0&amp;showinfo=0"-->
-<!--                                        frameborder="0" allowfullscreen></iframe>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute fh5co_hide_4">-->
-<!--                                <img src="images/vil-son-35490.jpg" alt=""/>-->
-<!--                            </div>-->
-<!--                            <div class="fh5co_hover_news_img_video_tag_position_absolute_1 fh5co_hide_4"-->
-<!--                                 id="play-video_4">-->
-<!--                                <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button_1">-->
-<!--                                    <div class="fh5co_hover_news_img_video_tag_position_absolute_1_play_button">-->
-<!--                                        <span><i class="fa fa-play"></i></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="pt-2">-->
-<!--                            <a href="#" class="d-block fh5co_small_post_heading fh5co_small_post_heading_1">-->
-<!--                                <span class="">The top 10 best computer speakers in the market</span></a>-->
-<!--                            <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <div class="container-fluid pb-4 pt-4 paddding">
     <div class="container paddding">
         <div class="row mx-0">
@@ -381,10 +220,10 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="fh5co_tags_all">
-                    <a href="#" class="fh5co_tagg">Business</a>
-                    <a href="#" class="fh5co_tagg">Technology</a>
-                    <a href="#" class="fh5co_tagg">Sport</a>
-                    <a href="#" class="fh5co_tagg">Art</a>
+                    <a href="/homeUser/blogs?category=Business" class="fh5co_tagg">Business</a>
+                    <a href="/homeUser/blogs?category=Technology" class="fh5co_tagg">Technology</a>
+                    <a href="/homeUser/blogs?category=Sport" class="fh5co_tagg">Sport</a>
+                    <a href="/homeUser/blogs?category=drama" class="fh5co_tagg">Drama</a>
                     <a href="#" class="fh5co_tagg">Lifestyle</a>
                     <a href="#" class="fh5co_tagg">Three</a>
                     <a href="#" class="fh5co_tagg">Photography</a>
@@ -408,7 +247,7 @@
                 </div>
                 <div class="row pb-3">
                     <div class="col-5 align-self-center">
-                        <img src="images/allef-vinicius-108153.jpg" alt="img" class="fh5co_most_trading"/>
+                        <img src="images/logo.png" alt="img" class="fh5co_most_trading"/>
                     </div>
                     <div class="col-7 paddding">
                         <div class="most_fh5co_treding_font"> Enim ad minim veniam nostrud xercitation ullamco.</div>
@@ -425,7 +264,7 @@
                     </div>
                 </div>
                 <div class="row pb-3">
-                    <div class="col-5 align-self-center"><img src="images/seth-doyle-133175.jpg" alt="img"
+                    <div class="col-5 align-self-center"><img src="images/javascript.png" alt="img"
                                                               class="fh5co_most_trading"/></div>
                     <div class="col-7 paddding">
                         <div class="most_fh5co_treding_font"> Magna aliqua ut enim ad minim veniam quis nostrud.</div>
@@ -449,7 +288,7 @@
 <div class="container-fluid fh5co_footer_bg pb-3">
     <div class="container animate-box">
         <div class="row">
-            <div class="col-12 spdp_right py-5"><img src="images/white_logo.png" alt="img" class="footer_logo"/></div>
+            <div class="col-12 spdp_right py-5"><img src="images/crypto.png" alt="img" class="footer_logo"/></div>
             <div class="clearfix"></div>
         </div>
         <div class="row justify-content-center pt-2 pb-4">

@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const qs = require('qs');
 const fs = require('fs');
+const cookie = require('cookie');
 
 const HomeController=require('./controller/homeControll.js');
 const ErrorController=require('./controller/errorControll.js');
@@ -48,7 +49,6 @@ let server=http.createServer((req,res)=>{
         if (filePath.includes('/css')){
             extension = mimeTypes[filesDefences[0].toString().split('/')[1]];
         }
-        console.log(extension)
         if (extension.includes('?')){
             extension = extension.split('?')[0];
         }
@@ -76,15 +76,22 @@ let server=http.createServer((req,res)=>{
                 }
                 break;
             }
+            case '/logout':{
+                loginController.logOut(req,res)
+                break;
+            }
             case '/homeUser':{
+                loginController.checkAuth(req,res);
                 homeUserController.showHomeUser(req,res,query);
                 break;
             }
             case '/homeAdmin':{
+                loginController.checkAuth(req,res);
                 homeAdminController.viewUsers(req,res,query);
                 break;
             }
             case `/homeUser/blogs`:{
+                loginController.checkAuth(req,res);
                 if(urlParse.query.category){
                     homeUserController.findWithCategory(req,res,urlParse.query.category);
                 }else{
@@ -93,30 +100,38 @@ let server=http.createServer((req,res)=>{
                 break;
             }
             case `/homeUser/blogs/blog`:{
+                loginController.checkAuth(req,res);
                 let idBlog = urlParse.query.idBlog;
                 homeUserController.viewABlog(req,res, idBlog);
                 break;
             }
             case `/homeUser/blogs/create_blog`:{
+                loginController.checkAuth(req,res);
                 if(method==='GET'){
                     homeUserController.showBlogFromCreate(req,res);
                 }else{
-                    homeUserController.CreateBlog(req,res,query);
+                    homeUserController.CreateBlog(req,res);
                 }
                 break;
             }
             case `/homeUser/blogs/setting` :{
+                loginController.checkAuth(req,res);
                 if(method === 'GET'){
                     homeUserController.settingBlog(req,res);
                 }else{
-                    homeUserController.editMyBlog(req,res);
+                    homeUserController.findBlog(req,res);
                 }
-
                 break;
             }
             case `/homeUser/blogs/setting/delete` :{
+                loginController.checkAuth(req,res);
                 const id = urlParse.query.id;
                 homeUserController.deleteBlogs(req,res,id);
+                break;
+            }
+            case `/homeUser/blogs/setting/update` :{
+                loginController.checkAuth(req,res);
+                homeUserController.editMyBlog(req,res);
                 break;
             }
             default:{

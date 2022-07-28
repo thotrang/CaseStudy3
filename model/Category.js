@@ -47,6 +47,18 @@ class Category{
             }
         })
     }
+
+    findByNameCategory(name){
+        return new Promise((resolve,rejects)=>{
+            this.connection.query(`select * from categories where name = '${name}'`,(err,data)=>{
+                if(err){
+                    rejects(err);
+                }else{
+                    resolve(data)
+                }
+            })
+        })
+    }
     
 };
 module.exports=Category;
