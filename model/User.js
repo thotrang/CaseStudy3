@@ -71,6 +71,18 @@ class User {
             })
         })
     }
+    // tìm kiếm tài khoản với name
+    getUserWithName(name) {
+        return new Promise((resolve, rejects) => {
+            this.connection.query(`select * from users where Username like "%${name.q}%"`, (err, data) => {
+                if (err) {
+                    rejects(err);
+                } else {
+                    resolve(data)
+                }
+            })
+        })
+    }
     // xóa tài khoản admin
     deleteUser(id) {
         let insertUser = `delete from users where users.id=${id}`;
@@ -84,7 +96,7 @@ class User {
     };
     // chỉnh sửa tài khoản user
     editUser(id, user) {
-        let insertUser = `update users set password=${user.password},phonenumber=${user.phonenumber},email=${user.email},address=${user.address}) where id=${id};`;
+        let insertUser = `update users set password='${user.password}',phonenumber='${user.phonenumber}',email='${user.email}',address='${user.address}') where id=${id};`;
         this.connection.query(insertUser, (err) => {
             if (err) {
                 console.log(err);
@@ -94,10 +106,10 @@ class User {
         })
     }
     // khóa 1 tài khoản admin
-    lockUser(id) {
-        let user = this.getUser(id)
-        if (user.status == 1) {
-            let insertUser = `update users set status= 0 where users.id=${id};`;
+    async lockUser(id) {
+        let user = await this.getUser(id);
+        if (user[0].status === 1) {
+            let insertUser = `update users set users.status= 0 where users.id=${id};`;
             this.connection.query(insertUser, (err) => {
                 if (err) {
                     console.log(err);
@@ -106,7 +118,7 @@ class User {
                 }
             })
         } else {
-            let insertUser = `update users set status= 1 where users.id=${id};`;
+            let insertUser = `update users set users.status= 1 where users.id=${id};`;
             this.connection.query(insertUser, (err) => {
                 if (err) {
                     console.log(err);

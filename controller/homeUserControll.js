@@ -113,6 +113,10 @@ class HomeUserController {
                 location: `/homeUser/blogs/setting`
             })
             res.end();
+
+        })
+        req.on('error',()=>{
+            console.log('err');
         })
     }
 

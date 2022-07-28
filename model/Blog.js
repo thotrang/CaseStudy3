@@ -26,7 +26,6 @@ class Blog {
             })
         })
     };
-
     // lấy ra 1 blog
     getBlog(ID) {
         console.log(ID)
