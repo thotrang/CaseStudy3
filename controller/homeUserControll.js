@@ -1,5 +1,6 @@
 const fs = require('fs');
 const qs = require('qs');
+let formidable = require('formidable')
 const Blog = require('../model/Blog.js');
 const Category = require('../model/Category.js');
 
@@ -115,10 +116,33 @@ class HomeUserController {
     }
 
     // xem danh sách blog của tôi
-    viewMyBlog() {
-        // this.blog.getBlogs().then((results) => {
-        //     fs.readFile('./')
-        // })
+    viewMyBlog(req, res) {
+        this.blog.getBlogs().then((results) => {
+            fs.readFile('./template/products.html','utf8',(err, data) => {
+                if (err) {
+                    throw new Error(err.message)
+                }
+                else {
+                    let dataForm = ''
+                    results.forEach((item, index) => {
+                        dataForm += '<tr>'
+                        dataForm += `<td>${index + 1}</td>`
+                        dataForm += `<td>${item.title}</td>`
+                        dataForm += `<td>${item.content}</td>`
+                        dataForm += `<td>${item.author}</td>`
+                        dataForm += `<td>${item.status}</td>`
+                        // dataForm+=`<img src="../template/image/${item.img}"/>`
+                        dataForm += `<td><a href="/template/products/delete?id=${item.id}">Delete</a></td>`
+                        dataForm += `<td><a href="/template/products/update?id=${item.id}">Update</a></td>`
+                        dataForm += '</tr>'
+                    })
+                    data = data.replace('{list}', dataForm)
+                    res.writeHead(200, "ok", {'Content-Type': 'text/html'})
+                    res.write(data)
+                    res.end()
+                }
+            })
+        })
     }
 
     // sửa 1 blog đã đăng
@@ -138,7 +162,7 @@ class HomeUserController {
                 let dataForm = qs.parse(data)
 
                 this.editMyBlog(dataForm.title, dataForm.content, dataForm.author).then((result) => {
-                    res.writeHead(301, )
+                    res.writeHead(301,'Localhost' )
                     res.write(result)
                     res.end()
                 })
@@ -152,8 +176,8 @@ class HomeUserController {
     }
 
     // thêm ảnh vào blog
-    addImage() {
+    addImage(req, res) {
 
     }
-};
+}
 module.exports = HomeUserController;

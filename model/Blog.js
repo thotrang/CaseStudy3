@@ -17,7 +17,7 @@ class Blog {
     // lấy ra danh sách blog
     getBlogs() {
         return new Promise((resolve, rejects) => {
-            this.connection.query('select * from blogs', (err, data) => {
+            this.connection.query(`select * from blogs`, (err, data) => {
                 if (err) {
                     rejects(err);
                 } else {

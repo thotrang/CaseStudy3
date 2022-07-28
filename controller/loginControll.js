@@ -7,7 +7,7 @@ class LoginController {
         this.user = new User();
     }
     showLogin(req, res) {
-        fs.readFile('./template/login.html', (err, data) => {
+        fs.readFile('./template/index.html', (err, data) => {
             if (err) {
                 console.log(err);
             } else {
@@ -27,7 +27,7 @@ class LoginController {
             let users = await this.user.getUsers();
             
             for(let aUser of users){
-                if(userLogin.email === aUser.Email && userLogin.password===aUser.Password){
+                if(userLogin.email === aUser.Email && userLogin.password === aUser.Password){
                     if(aUser.status === 1){
                         console.log('đăng nhập thành công');
                         if(aUser.role_id === 3){
