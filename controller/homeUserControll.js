@@ -31,7 +31,7 @@ class HomeUserController {
             if (err) {
                 console.log(err);
             } else {
-                let id_user = query.id_user;
+
                 let blogs = await this.blog.getBlogs();
                 let table = ``;
                 for (let i = 0; i < blogs.length; i++) {
@@ -40,12 +40,14 @@ class HomeUserController {
                     <td>${i + 1}</td>
                     <td>${blogs[i].title}</td>
                     <td>${blogs[i].author}</td>
-                    <td><a href="/homeUser/blogs/blog?id_user=${id_user}&id_blog=${blogs[i].id}>View</a></td>
+                    <td><a href="/homeUser/blogs/blog?idBlog=${blogs[i].id}">View</a></td>
                 </tr>`;
                 }
-                data = data.replaceAll('{id}', id_user);
+
+                // data = data.replaceAll('{id}', id_user);
+                data = data.replace('{category}', '')
                 data = data.replace('{blog}', table);
-                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.writeHead(200, {'Content-Type': 'text/html'})
                 res.write(data);
                 return res.end();
             }
@@ -54,20 +56,21 @@ class HomeUserController {
 
     // xem chi tiết 1 blog
     viewABlog(req, res, idBlog) {
-        fs.readFile('./views/home_user/home_user.html', 'utf-8', async (err, data) => {
+        fs.readFile('./views/home_user/blogDetail.html', 'utf-8', async (err, data) => {
             if (err) {
                 console.log(err);
             } else {
                 let blog = await this.blog.getBlog(idBlog);
-                let data = `<ol>
-                <li>${blog.title}</li>
-                <li>${blog.author}</li>
-                <li>${blog.time_create}</li>
-                <li>${blog.time_update}</li>
-                <li>${blog.content}</li>
-            </ol>`;
-                data = data.replaceAll('{id}', id_user);
-                data = data.replace('{blog}', data);
+
+                let blogDetail = `<ul>
+                <li>time-create: ${blog[0].time_create}</li>
+                <li>time-update: ${blog[0].time_update}</li>
+                <li>content: ${blog[0].content} </li>
+            </ul>`;
+                // data = data.replaceAll('{id}', id_user);
+                data = data.replace('{body}', blogDetail);
+                data = data.replace('{title}', blog[0].title);
+                data = data.replace('{author}', blog[0].author);
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 res.write(data);
                 return res.end();
@@ -112,7 +115,7 @@ class HomeUserController {
             let buffer = [];
 
             for await (const chunk of req) {
-                buffer.push(chunk)
+                buffer.push(chunk);
             }
             const data = Buffer.concat(buffer).toString()
             const dataSearch = (qs.parse(data)).name;
@@ -139,15 +142,62 @@ class HomeUserController {
 
 
     // tìm kiếm theo danh mục
-    findWithCategory() {
+    findWithCategory(req,res,category) {
+        this.blog.getBlogWithCategory(category).then((blogs) => {
+            console.log(blogs)
+            fs.readFile('./views/home_user/home_user.html', 'utf-8', (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    let table = ``;
+                    for (let i = 0; i < blogs.length; i++) {
+                        table += `
+                    <tr>
+                    <td>${i + 1}</td>
+                    <td>${blogs[i].title}</td>
+                    <td>${blogs[i].author}</td>
+                    <td><a href="/homeUser/blogs/blog?idBlog=${blogs[i].id}">View</a></td>
+                </tr>`;
+                    }
+                    data = data.replace('{category}', `<h1>${category}</h1>`)
+                    data = data.replace('{blog}', table);
+                    res.writeHead(200, {'Content-Type': 'text/html'})
+                    res.write(data);
+                    return res.end();
+                }
+            })
+        })
 
-    }
+    };
 
     // xem danh sách blog của tôi
-    viewMyBlog() {
-        // this.blog.getBlogs().then((results) => {
-        //     fs.readFile('./')
-        // })
+    viewMyBlog(req, res) {
+        this.blog.getBlogs().then((results) => {
+            fs.readFile('./template/products.html','utf8',(err, data) => {
+                if (err) {
+                    throw new Error(err.message)
+                }
+                else {
+                    let dataForm = ''
+                    results.forEach((item, index) => {
+                        dataForm += '<tr>'
+                        dataForm += `<td>${index + 1}</td>`
+                        dataForm += `<td>${item.title}</td>`
+                        dataForm += `<td>${item.content}</td>`
+                        dataForm += `<td>${item.author}</td>`
+                        dataForm += `<td>${item.status}</td>`
+                        // dataForm+=`<img src="../template/image/${item.img}"/>`
+                        dataForm += `<td><a href="/template/products/delete?id=${item.id}">Delete</a></td>`
+                        dataForm += `<td><a href="/template/products/update?id=${item.id}">Update</a></td>`
+                        dataForm += '</tr>'
+                    })
+                    data = data.replace('{list}', dataForm)
+                    res.writeHead(200, "ok", {'Content-Type': 'text/html'})
+                    res.write(data)
+                    res.end()
+                }
+            })
+        })
     }
 
     // sửa 1 blog đã đăng
@@ -166,11 +216,11 @@ class HomeUserController {
             req.on('end', () => {
                 let dataForm = qs.parse(data)
 
-                // this.editMyBlog(dataForm.title, dataForm.content, dataForm.author).then((result) => {
-                //     res.writeHead(301, )
-                //     res.write(result)
-                //     res.end()
-                // })
+                this.editMyBlog().then((result) => {
+                    res.writeHead(301, '/');
+                    res.write(result);
+                    res.end()
+                })
             })
         }
     }

@@ -48,7 +48,7 @@ let server=http.createServer((req,res)=>{
         if (filePath.includes('/css')){
             extension = mimeTypes[filesDefences[0].toString().split('/')[1]];
         }
-        console.log(extension)
+        // console.log(extension)
         if (extension.includes('?')){
             extension = extension.split('?')[0];
         }
