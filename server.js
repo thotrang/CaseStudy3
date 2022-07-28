@@ -2,6 +2,8 @@ const http = require('http');
 const url = require('url');
 const qs = require('qs');
 const fs = require('fs');
+const alert=require('alert');
+const confirm =require('confirm');
 
 const HomeController = require('./controller/homeControll.js');
 const ErrorController = require('./controller/errorControll.js');
@@ -20,8 +22,10 @@ let homeAdminController = new HomeAdminController();
 const mimeTypes = {
     "html": "text/html",
     "js": "text/javascript",
-    "min.js": "text/javascript",
     "css": "text/css",
+    "min.js": "text/javascript",
+    "js.map": "text/javascript",
+    "css.map": "text/css",
     "min.css": "text/css",
     "jpg": "image/jpg",
     "png": "image/png",
@@ -39,20 +43,22 @@ let server = http.createServer((req, res) => {
     let query = qs.parse(urlParse.query);
     let method = req.method;
 
-    const filesDefences = req.url.match(/\.js|.css|.jpg|.png|.gif|min.js|min.css|.woff|.woff2|.ttf|.eot/);
+
+    let filesDefences = req.url.match(/\.js|.css|.jpg|.png|.gif|min.js|js.map|min.css|.css.map|.woff|.ttf|.woff2|.eot/);
     if (filesDefences) {
         let filePath = filesDefences[0].toString();
         let extension = mimeTypes[filesDefences[0].toString().split('.')[1]];
-        if (filePath.includes('/css')) {
+        if (filePath.includes('/css')){
             extension = mimeTypes[filesDefences[0].toString().split('/')[1]];
         }
-        if (extension.includes('?')) {
+        if (extension.includes('?')){
             extension = extension.split('?')[0];
         }
         res.writeHead(200, { 'Content-Type': extension });
-        fs.createReadStream(__dirname + "/" + req.url).pipe(res)
+        fs.createReadStream(__dirname + '/' + req.url).pipe(res);
     }
     else {
+        let login=query.id_user;
         switch (urlPath) {
             case '/': {
                 homeController.showHome(req, res);
@@ -86,12 +92,22 @@ let server = http.createServer((req, res) => {
                 homeUserController.viewABlog(req, res, query);
                 break;
             }
-            case `/homeUser/blogs/create_blog`: {
+            case `/homeUser/blogs/create`: {
                 if (method === 'GET') {
-                    homeUserController.showBlogFromCreate(req, res);
+                    homeUserController.showFormCreate(req, res,query);
                 } else {
-                    homeUserController.CreateBlog(req, res, query);
+                    homeUserController.createBlog(req, res, query);
                 }
+                break;
+            }
+            case `/homeUser/blogs/search`: {
+                if(method=='POST'){
+                homeAdminController.searchUser(req, res, query);
+                }
+                break;
+            }
+            case `/homeUser/showProfile`:{
+                homeUserController.showProfile(req,res,query);
                 break;
             }
             case `/homeAdmin/users`: {
@@ -113,6 +129,7 @@ let server = http.createServer((req, res) => {
                 break;
             }
             case `/homeAdmin/blogs/delete`: {
+                // let choice=alert('Bạn có đồng ý xóa blog này');
                 homeAdminController.deleteBlog(req, res, query);
                 homeAdminController.viewBlogs(req, res, query);
                 break;
@@ -162,6 +179,7 @@ let server = http.createServer((req, res) => {
                 break;
             }
             case `/homeAdmin/categories/delete`: {
+                // let choice=alert('Bạn có đồng ý xóa tab này');
                 homeAdminController.deleteCategory(req,res,query);
                 homeAdminController.viewCategories(req, res, query);
                 break;
@@ -184,6 +202,7 @@ let server = http.createServer((req, res) => {
                 homeAdminController.viewCategories(req, res, query);
                 break;
             }
+            
             default: {
                 errorController.showError(req, res);
                 break;
@@ -192,5 +211,5 @@ let server = http.createServer((req, res) => {
     }
 })
 server.listen(8080, () => {
-    console.log('server running in http://localhost:8080');
+    console.log('server running at http://localhost:8080');
 })

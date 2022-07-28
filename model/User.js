@@ -85,8 +85,14 @@ class User {
     }
     // xóa tài khoản admin
     deleteUser(id) {
-        let insertUser = `delete from users where users.id=${id}`;
-        this.connection.query(insertUser, (err) => {
+        let query1 = `delete from blogs where blogs.user_id=${id};`;
+        let query2=`delete from users where users.id=${id};`;
+        this.connection.query(query1, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        })
+        this.connection.query(query2, (err) => {
             if (err) {
                 console.log(err);
             } else {

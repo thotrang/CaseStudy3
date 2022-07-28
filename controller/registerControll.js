@@ -26,7 +26,7 @@ class RegisterController{
             let newUser = qs.parse(data);
             this.user.createUser(newUser);
             res.writeHead(301, {
-                location: '/register'
+                location: '/login'
             });
             return res.end();
         });

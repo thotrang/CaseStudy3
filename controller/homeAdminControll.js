@@ -181,6 +181,7 @@ class HomeAdminController {
                 <li>${blog[0].author}</li>
                 <li>${blog[0].time_create}</li>
                 <li>${blog[0].time_update}</li>
+                <li><img src="${blog[0].image}" alt=""/></li>
                 <li>${blog[0].content}</li>
             </ol>`;
                 data = data.replaceAll('{search}', `${blog[0].title}`);

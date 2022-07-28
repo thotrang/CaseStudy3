@@ -17,6 +17,9 @@ class LoginController {
             }
         })
     };
+    showDisplay(){
+        alert('WARNING: Price must equal Contract Price.');
+    }
     login(req, res) {
         let data = '';
         req.on('data', chunk => {
@@ -43,9 +46,18 @@ class LoginController {
                         return res.end();
                     }else{
                         console.log('tài khoản đã bị khóa');
+                        // res.writeHead(301, {
+                        //     location: `/login`
+                        // });
+                        // res.end();
                     }
                 }else{
-                    console.log('tài khoản hoặc mật khẩu ko đúng');
+                    
+                    console.log('Tài khoản hoặc mật khẩu không đúng');
+                    // res.writeHead(301, {
+                    //     location: `/login`
+                    // });
+                    // res.end();
                 }
             }
         })

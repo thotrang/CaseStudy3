@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "alert": "^5.1.1",
+    "confirm": "^0.1.1",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
     "mysql": "^2.18.1",

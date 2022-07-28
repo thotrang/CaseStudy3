@@ -90,7 +90,7 @@ class Blog{
 
     // tạo 1 blog
     createBlog(blog,id_user){
-        let query=`insert into blogs (title,author,content,user_id) values ('${blog.title}','${blog.author}','${blog.content}',${id_user})`
+        let query=`insert into blogs (title,author,content,image,user_id) values ('${blog.title}','${blog.author}','${blog.content}','${blog.image}',${id_user})`
         this.connection.query(query,(err,data)=>{
             if(err){
                 console.log(err);
