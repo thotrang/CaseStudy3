@@ -18,7 +18,7 @@ class HomeController{
                 for(let i=0;i<blogs.length;i++){
                     blogs1+=` <div class="item px-2">
                     <div class="fh5co_hover_news_img">
-                        <div class="fh5co_news_img"><img src="#" alt=""/></div>
+                        <div class="fh5co_news_img"><img src="${blogs[i].image}" alt=""/></div>
                         <div>
                             <a href="/login" class="d-block fh5co_small_post_heading"><span class="">${blogs[i].title}</span></a>
                             <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>
@@ -32,7 +32,7 @@ class HomeController{
                 blogs2+=`<div class="row pb-4">
                 <div class="col-md-5">
                     <div class="fh5co_hover_news_img">
-                        <div class="fh5co_news_img"><img src="#" alt=""/></div>
+                        <div class="fh5co_news_img"><img src="${blogs[i].image}" alt=""/></div>
                         <div></div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ class HomeController{
                 for(let i=0;i<blogs.length;i++){
                     blogs3+=` <div class="row pb-3">
                     <div class="col-5 align-self-center">
-                        <img src="#" alt="img" class="fh5co_most_trading"/>
+                        <img src="${blogs[i].image}" alt="img" class="fh5co_most_trading"/>
                     </div>
                     <div class="col-7 paddding">
                         <div class="most_fh5co_treding_font">${blogs[i].title}</div>

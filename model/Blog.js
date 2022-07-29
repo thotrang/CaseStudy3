@@ -25,6 +25,18 @@ class Blog{
             })
         })
     };
+    //
+    getBlogsUnLock(){
+        return new Promise((resolve,rejects)=>{
+            this.connection.query('select * from blogs where blogs.status=1',(err,data)=>{
+                if(err){
+                    rejects(err);
+                }else{
+                    resolve(data);
+                }
+            })
+        })
+    }
     // lấy ra 1 blog
     getBlog(id){
         return new Promise((resolve,rejects)=>{
@@ -89,8 +101,8 @@ class Blog{
     }
 
     // tạo 1 blog
-    createBlog(blog,id_user){
-        let query=`insert into blogs (title,author,content,image,user_id) values ('${blog.title}','${blog.author}','${blog.content}','${blog.image}',${id_user})`
+    createBlog(blog,id_user,id_category){
+        let query=`insert into blogs (title,author,content,image,user_id,category_id) values ('${blog.title}','${blog.author}','${blog.content}','${blog.image}',${id_user},${id_category})`
         this.connection.query(query,(err,data)=>{
             if(err){
                 console.log(err);

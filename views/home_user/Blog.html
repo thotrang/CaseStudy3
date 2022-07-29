@@ -88,103 +88,17 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="/homeUser/showProfile?id_user={id_user}">My Profile <span class="sr-only">(current)</span></a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/homeUser/blogs/create?id_user={id_user}">Create <span class="sr-only">(current)</span></a>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-3 fh5co_padding_menu">
-                    <img src="../../assets/images/logo.png" alt="img" class="fh5co_logo_width" />
-                </div>
-                <div class="col-6 col-md-8 align-self-end fh5co_mediya_right">
-                    <div class="input-group rounded">
-                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                            aria-describedby="search-addon" />
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
+    <div style="width: 60%; margin: 0 auto ;margin-top:20px; padding: 20px; background-color: rgb(235, 235, 235)">
+        {content}
     </div>
-    <hr>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 ">
-                <div class="list-group ">
-                    <a href="home_user.html" class="list-group-item list-group-item-action ">Blog</a>
-                    <a href="list_user.html" class="list-group-item list-group-item-action active">Add Blog</a>
-                    <a href="setting_user.html" class="list-group-item list-group-item-action">Setting</a>
-                    <a href="../../views/home/home.html" class="list-group-item list-group-item-action">Home</a>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4>Add A Blog</h4>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form action="" form="" method="post">
-                                    <div class="form-group row">
-                                        <label for="title" class="col-4 col-form-label">Title </label>
-                                        <div class="col-8">
-                                            <input id="title" name="title" placeholder="Title" class="form-control here"
-                                                required="required" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="content" class="col-4 col-form-label">Image</label>
-                                        <div class="col-8">
-                                            <input id="content" name="image" placeholder="Link" required="required"
-                                                class="form-control here" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="author" class="col-4 col-form-label">Author</label>
-                                        <div class="col-8">
-                                            <input id="author" name="author" placeholder="Author"
-                                                class="form-control here" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="author" class="col-4 col-form-label">Tab</label>
-                                        <div class="col-8">
-                                            <input id="author" name="q" placeholder="Add Tab"
-                                                class="form-control here" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="author" class="col-4 col-form-label">Content</label>
-                                        <div class="col-8">
-                                            <textarea name="content" id="" cols="30" rows="10"
-                                                style="width: 511px; height: 800px"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="offset-4 col-8">
-                                            <button name="submit" type="submit" class="btn btn-primary">Create</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </body>
     <div class="container-fluid fh5co_footer_bg pb-3">
         <div class="container animate-box">
             <div class="row">
@@ -287,4 +201,3 @@
 </body>
 
 </html>
-

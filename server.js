@@ -76,7 +76,7 @@ let server = http.createServer((req, res) => {
                 if (method === 'GET') {
                     loginController.showLogin(req, res);
                 } else {
-                    loginController.login(req, res);
+                    loginController.login(req, res,query);
                 }
                 break;
             }
@@ -100,14 +100,26 @@ let server = http.createServer((req, res) => {
                 }
                 break;
             }
-            case `/homeUser/blogs/search`: {
-                if(method=='POST'){
-                homeAdminController.searchUser(req, res, query);
-                }
-                break;
-            }
+            // case `/homeUser/blogs/search`: {
+            //     if(method=='POST'){
+            //     homeAdminController.searchUser(req, res, query);
+            //     }
+            //     break;
+            // }
             case `/homeUser/showProfile`:{
                 homeUserController.showProfile(req,res,query);
+                break;
+            }
+            case `/homeUser/viewABlog`:{
+                homeUserController.viewABlog(req,res,query);
+                break;
+            }
+            case `/homeUser/search`:{
+                if(method==='GET'){
+                    homeUserController.showHomeUser(req, res, query);
+                }else{
+                    homeUserController.searchBlog(req,res,query);
+                }
                 break;
             }
             case `/homeAdmin/users`: {
@@ -202,7 +214,10 @@ let server = http.createServer((req, res) => {
                 homeAdminController.viewCategories(req, res, query);
                 break;
             }
-            
+            case `/homeAdmin/category`:{
+                homeAdminController.viewBlogOfCategory(req,res,query);
+                break;
+            }
             default: {
                 errorController.showError(req, res);
                 break;
