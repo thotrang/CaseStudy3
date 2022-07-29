@@ -131,6 +131,7 @@ class HomeUserController {
                 let id_user = query.id_user;
                 let search = qs.parse(data);
                 let blogs = await this.blog.getblogWithTitle(search);
+                let categories = await this.category.getCategories();
                 let blogs1 = ``;
                 let blogs2 = this.showBlog2(req, res, query, blogs);
                 let blogs3 = this.showBlog3(req, res, query, blogs)
