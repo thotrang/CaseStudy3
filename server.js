@@ -115,9 +115,7 @@ let server = http.createServer((req, res) => {
                 break;
             }
             case `/homeUser/search`:{
-                if(method==='GET'){
-                    homeUserController.showHomeUser(req, res, query);
-                }else{
+                if(method==='POST'){
                     homeUserController.searchBlog(req,res,query);
                 }
                 break;
